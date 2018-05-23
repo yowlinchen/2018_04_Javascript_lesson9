@@ -6,9 +6,9 @@
     <script>
         // Put all the global variables in ga
         var ga = {
-            ctx:null,audio: null,
+            ctx:null,audio: null, lib:{},
             data: {
-                drawables:null
+                drawables:null, plane:null,
             },
             res: {
                 total:4, loaded:0,
@@ -115,7 +115,11 @@
             document.querySelector("#menu").style.display="none";
             document.querySelector("#game").style.display="block";
             // init game data
+            ga.data.plane=new ga.lib.Plane();
             ga.data.drawables=[];
+            ga.data.drawables.push(ga.data.plane);
+            // ga.data.plan --> a plane
+            // ga.data.drawables[0] --> also a plan
             // Start game
             window.setInterval(ga.refreshGame,10);
         }
@@ -139,6 +143,7 @@
             }
         };
     </script>
+    <script src="./lib.js"></script>
 </head>
 
 <body>
