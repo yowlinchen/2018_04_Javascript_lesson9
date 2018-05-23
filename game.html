@@ -126,7 +126,7 @@
             
             // create keyboard control interrface 
             document.addEventListener("keydown", ga.keydown);
-            document.addEventListener("keydown", ga.keyup);
+            document.addEventListener("keyup", ga.keyup);
             // Start game
             window.setInterval(ga.refreshGame,10);
         }
@@ -138,10 +138,10 @@
                 ga.data.key.left=true;
                 // ga.data.plane.x-=4;
             } else if (code==38) {
-                ga.data.key.right=true;
+                ga.data.key.top=true;
                 // ga.data.plane.y-=4;
             } else if (code == 39) {
-                ga.data.key.top=true;
+                ga.data.key.right=true;
                 // ga.data.plane.x+=4;
             } else if (code == 40) {
                 ga.data.key.bottom=true;
@@ -155,10 +155,10 @@
                 ga.data.key.left=false;
                 // ga.data.plane.x-=4;
             } else if (code==38) {
-                ga.data.key.right=false;
+                ga.data.key.top=false;
                 // ga.data.plane.y-=4;
             } else if (code == 39) {
-                ga.data.key.top=false;
+                ga.data.key.right=false;
                 // ga.data.plane.x+=4;
             } else if (code == 40) {
                 ga.data.key.bottom=false;
