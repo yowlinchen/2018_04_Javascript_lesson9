@@ -72,7 +72,8 @@
         ga.resourceLoaded = function() {
            ga.res.loaded++; 
            var percentage = 100* (ga.res.loaded/ga.res.total);
-           console.log(percentage);
+        //    console.log(percentage);
+            document.querySelector("#loading").innerHTML=percentage+"%"
         };
 
         ga.playSound = function (buffer, time) {
