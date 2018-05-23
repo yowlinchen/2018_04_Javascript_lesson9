@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Sound Effects</title>
+    <script>
+        // Put all the global variables in ga
+        var ga = {
+            audio: null,
+            res: {
+                sounds: {
+                    bullet: "./sound-bullet.mp3",
+                    explosion: "./sound-explosion.mp3"
+                },
+                imgs: {
+                    plane: "./plane.png",
+                    explosion: "./particle-explosion.png"
+                }
+            }
+        };
+        window.addEventListener("load", function () {
+            // init sound env
+            ga.audio = new AudioContext();
+            // load resources
+            ga.loadResources();
+        });
+        ga.loadResources = function () {
+            ga.loadSounds();
+            ga.loadImages();
+            // we need to make sure all the resources are successfully loaded.  Only then we can proceed
+            console.log("Start");
+        };
+
+        ga.loadImages = function () {
+            for (var name in ga.res.imgs) {
+                ga.loadImage(name, ga.res.imgs[name]);
+            }
+        };
+        ga.loadImage = function (name, src) {
+            var img = new Image();
+            img.src = src;
+            img.onload = function () {
+                ga.res.imgs[name] = img;
+                console.log("Image", name); // THis is the place where images are succesfully loaded
+            };
+        };
+        ga.loadSounds = function () {
+            for (var name in ga.res.sounds) {
+                ga.loadSound(name, ga.res.sounds[name]);
+            }
+        };
+
+        // var snare;
+        ga.loadSound = function (name, src) {
+            var req = new XMLHttpRequest();
+            req.responseType = "arraybuffer";
+            req.open("get", src);
+            req.onload = function () {
+                // console.log(req.response);
+                // Transfer ArrayBuffer to AudioBuffer and save it
+                ga.audio.decodeAudioData(req.response, function (buffer) {
+                    ga.res.sounds[name] = buffer;
+                    // console.log(snare);
+                    console.log("Sound", name);
+                });
+            };
+            req.send();
+        };
+
+        ga.playSound = function (buffer, time) {
+            var source = ga.audio.createBufferSource();
+            source.buffer = buffer; // where source is coming from
+            // Create gainnode
+            // var gain = audio.createGain();
+            // connect & play
+            // source.connect(gain);
+            source.connect(ga.audio.destination); // next box
+            source.start(time); // play
+        };
+    </script>
+</head>
+
+<body>
+    <div id="loading">Loading</div>
+    <div id="menu" style="display:none">Menu</div>
+    <div id="game" style="display:none">Game</div>
+</body>
+
+</html>
