@@ -8,6 +8,7 @@
         var ga = {
             ctx:null,audio: null, lib:{},
             data: {
+                circle:0,
                 drawables:null, plane:null,
                 key: {
                     left: false, top: false, right: false, bottom: false
@@ -118,6 +119,7 @@
             document.querySelector("#menu").style.display="none";
             document.querySelector("#game").style.display="block";
             // init game data
+            ga.data.circle = 0 ;
             ga.data.plane=new ga.lib.Plane();
             ga.data.drawables=[];
             ga.data.drawables.push(ga.data.plane);
@@ -170,6 +172,7 @@
         ga.refreshGame=function(){
             // Update data
             var drawables = ga.data.drawables;
+            ga.data.circle++;
             for (var i=0; i<drawables.length;i++) {
                 var die = drawables[i].update();
                 if(die){

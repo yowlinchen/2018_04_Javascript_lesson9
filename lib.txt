@@ -1,9 +1,7 @@
 ga.lib.BulletSystem = function(){
     this.bullets=[];
     this.update=function(){
-        if (ga.data.circle%4==0){
-            this.bullets.push(new ga.lib.Bullet());
-        }
+        this.bullets.push(new ga.lib.Bullet());
         // update each bullet
         for(var i=0;i<this.bullets.length;i++){
             var die = this.bullets[i].update();
