@@ -7,6 +7,9 @@
         // Put all the global variables in ga
         var ga = {
             ctx:null,audio: null,
+            data: {
+                drawables:null
+            },
             res: {
                 total:4, loaded:0,
                 sounds: {
@@ -99,8 +102,19 @@
             source.start(time); // play
         };
         ga.initGame=function() {
-
+            // take care of html DOM
+            document.querySelector("#menu").style.display="none";
+            document.querySelector("#game").style.display="block";
+            // init game data
+            ga.data.drawables=[];
+            // Start game
+            window.setInterval(ga.refreshGame,10);
         }
+        ga.refreshGame=function(){
+            // Update data
+            // clear picture
+            // redraw
+        };
     </script>
 </head>
 
