@@ -89,7 +89,16 @@
            var percentage = 100* (ga.res.loaded/ga.res.total);
         //    console.log(percentage);
             document.querySelector("#loading").innerHTML=percentage+"%"
+            if (ga.res.loaded>=ga.res.total) {
+                ga.initMenu();
+            }
         };
+
+        ga.initmenu=function(){
+            document.querySelector("#loading").style.display="none";
+            document.querySelector("#menu").style.display="block";
+            document.querySelector("#game").style.display="none";
+        }
 
         ga.playSound = function (buffer, time) {
             var source = ga.audio.createBufferSource();
@@ -112,8 +121,22 @@
         }
         ga.refreshGame=function(){
             // Update data
+            var drawables = ga.data.drawables;
+            for (var i=0; i<drawables.length;i++) {
+                var die = drawables[i].update();
+                if(die){
+                    drawables.splice(i,1);
+                    i--;
+                }
+            }
             // clear picture
+            // needs to user clear usually but since our background is block, use fill
+            // ga.ctx.clearRect(0,0,ga.ctx.canvas.width,ga.ctx.canvas.height);
+            ga.ctx.fillRect(0,0,ga.ctx.canvas.width,ga.ctx.canvas.height);
             // redraw
+            for(var i=0;i<drawables.length;i++){
+                drawables[i].draw();
+            }
         };
     </script>
 </head>
