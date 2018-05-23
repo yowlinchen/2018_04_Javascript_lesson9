@@ -8,6 +8,7 @@
         var ga = {
             audio: null,
             res: {
+                total:4, loaded:0,
                 sounds: {
                     bullet: "./sound-bullet.mp3",
                     explosion: "./sound-explosion.mp3"
@@ -28,7 +29,6 @@
             ga.loadSounds();
             ga.loadImages();
             // we need to make sure all the resources are successfully loaded.  Only then we can proceed
-            console.log("Start");
         };
 
         ga.loadImages = function () {
@@ -41,7 +41,8 @@
             img.src = src;
             img.onload = function () {
                 ga.res.imgs[name] = img;
-                console.log("Image", name); // THis is the place where images are succesfully loaded
+                // console.log("Image", name); // THis is the place where images are succesfully loaded
+                ga.resourceLoaded();
             };
         };
         ga.loadSounds = function () {
@@ -61,10 +62,17 @@
                 ga.audio.decodeAudioData(req.response, function (buffer) {
                     ga.res.sounds[name] = buffer;
                     // console.log(snare);
-                    console.log("Sound", name);
+                    // console.log("Sound", name);
+                    ga.resourceLoaded();
                 });
             };
             req.send();
+        };
+
+        ga.resourceLoaded = function() {
+           ga.res.loaded++; 
+           var percentage = 100* (ga.res.loaded/ga.res.total);
+           console.log(percentage);
         };
 
         ga.playSound = function (buffer, time) {
