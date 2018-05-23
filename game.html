@@ -120,9 +120,17 @@
             ga.data.drawables.push(ga.data.plane);
             // ga.data.plan --> a plane
             // ga.data.drawables[0] --> also a plan
+            
+            // create keyboard control interrface 
+            document.addEventListener("keydown", ga.keydown);
             // Start game
             window.setInterval(ga.refreshGame,10);
         }
+
+        ga.keydown=function(e) {
+            console.log(e.keyCode);
+        };
+
         ga.refreshGame=function(){
             // Update data
             var drawables = ga.data.drawables;
