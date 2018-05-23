@@ -9,6 +9,9 @@
             ctx:null,audio: null, lib:{},
             data: {
                 drawables:null, plane:null,
+                key: {
+                    left: false, top: false, right: false, bottom: false
+                }
             },
             res: {
                 total:4, loaded:0,
@@ -123,6 +126,7 @@
             
             // create keyboard control interrface 
             document.addEventListener("keydown", ga.keydown);
+            document.addEventListener("keydown", ga.keyup);
             // Start game
             window.setInterval(ga.refreshGame,10);
         }
@@ -131,13 +135,34 @@
             // console.log(e.keyCode);
             var code = e.keyCode;
             if(code==37){
-                ga.data.plane.x-=4;
+                ga.data.key.left=true;
+                // ga.data.plane.x-=4;
             } else if (code==38) {
-                ga.data.plane.y-=4;
+                ga.data.key.right=true;
+                // ga.data.plane.y-=4;
             } else if (code == 39) {
-                ga.data.plane.x+=4;
+                ga.data.key.top=true;
+                // ga.data.plane.x+=4;
             } else if (code == 40) {
-                ga.data.plane.y+=4;
+                ga.data.key.bottom=true;
+                // ga.data.plane.y+=4;
+            }
+        };
+        ga.keyup=function(e) {
+            // console.log(e.keyCode);
+            var code = e.keyCode;
+            if(code==37){
+                ga.data.key.left=false;
+                // ga.data.plane.x-=4;
+            } else if (code==38) {
+                ga.data.key.right=false;
+                // ga.data.plane.y-=4;
+            } else if (code == 39) {
+                ga.data.key.top=false;
+                // ga.data.plane.x+=4;
+            } else if (code == 40) {
+                ga.data.key.bottom=false;
+                // ga.data.plane.y+=4;
             }
         };
 
