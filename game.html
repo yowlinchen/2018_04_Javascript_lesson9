@@ -6,7 +6,7 @@
     <script>
         // Put all the global variables in ga
         var ga = {
-            audio: null,
+            ctx:null,audio: null,
             res: {
                 total:4, loaded:0,
                 sounds: {
@@ -20,6 +20,8 @@
             }
         };
         window.addEventListener("load", function () {
+            // init website
+            ga.ctx =document.querySelector("#cvs").getContext("2d");
             // init sound env
             ga.audio = new AudioContext();
             // load resources
@@ -29,6 +31,16 @@
             ga.loadSounds();
             ga.loadImages();
             // we need to make sure all the resources are successfully loaded.  Only then we can proceed
+            if (ga.res.loaded>=ga.res.total) {
+                ga.initMenu();
+            }
+        };
+        
+        ga.initMenu=function() {
+            // HTML DOM
+            document.querySelector("#loading").style.display="none";
+            document.querySelector("#menu").style.display="block";
+            document.querySelector("#game").style.display="none";
         };
 
         ga.loadImages = function () {
@@ -86,13 +98,20 @@
             source.connect(ga.audio.destination); // next box
             source.start(time); // play
         };
+        ga.initGame=function() {
+
+        }
     </script>
 </head>
 
 <body>
     <div id="loading">Loading</div>
-    <div id="menu" style="display:none">Menu</div>
-    <div id="game" style="display:none">Game</div>
+    <div id="menu" style="display:none">Menu
+        <button onclick="ga.initGame();">Start</button>
+    </div>
+    <div id="game" style="display:none">Game
+        <canvas id="cvs" width="640" height="480"></canvas>
+    </div>
 </body>
 
 </html>
