@@ -34,17 +34,11 @@
             ga.loadSounds();
             ga.loadImages();
             // we need to make sure all the resources are successfully loaded.  Only then we can proceed
-            if (ga.res.loaded>=ga.res.total) {
-                ga.initMenu();
-            }
+            // if (ga.res.loaded>=ga.res.total) {
+            //     ga.initMenu();
+            // }
         };
         
-        ga.initMenu=function() {
-            // HTML DOM
-            document.querySelector("#loading").style.display="none";
-            document.querySelector("#menu").style.display="block";
-            document.querySelector("#game").style.display="none";
-        };
 
         ga.loadImages = function () {
             for (var name in ga.res.imgs) {
@@ -94,11 +88,17 @@
             }
         };
 
-        ga.initmenu=function(){
+        ga.initMenu=function() {
+            // HTML DOM
             document.querySelector("#loading").style.display="none";
             document.querySelector("#menu").style.display="block";
             document.querySelector("#game").style.display="none";
-        }
+        };
+        // ga.initmenu=function(){
+        //     document.querySelector("#loading").style.display="none";
+        //     document.querySelector("#menu").style.display="block";
+        //     document.querySelector("#game").style.display="none";
+        // }
 
         ga.playSound = function (buffer, time) {
             var source = ga.audio.createBufferSource();
