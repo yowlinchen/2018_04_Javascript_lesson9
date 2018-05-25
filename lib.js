@@ -1,8 +1,9 @@
-ga.lib.BulletSystem = function(){
+ga.lib.BulletSystem = function(color){
     this.bullets=[];
+    this.color=color;
     this.update=function(){
         if (ga.data.circle%4==0){
-            this.bullets.push(new ga.lib.Bullet());
+            this.bullets.push(new ga.lib.Bullet(this.color));
         }
         // update each bullet
         for(var i=0;i<this.bullets.length;i++){
@@ -21,12 +22,13 @@ ga.lib.BulletSystem = function(){
     };
 };
 
-ga.lib.Bullet=function(){
+ga.lib.Bullet=function(color){
     this.x = 0;
     this.y = Math.random()*ga.ctx.canvas.height;
     this.vx = Math.random()*1+0.5 // 0.5~2.5 
     this.vy = 0;
     this.size = 1;
+    this.color = color;
     this.update = function(){
         this.x += this.vx;
         this.y += this.vy;
@@ -34,7 +36,7 @@ ga.lib.Bullet=function(){
     };
     this.draw = function(){
         ga.ctx.save();
-        ga.ctx.fillStyle="white";
+        ga.ctx.fillStyle=this.color;
         ga.ctx.beginPath();
         ga.ctx.arc(this.x, this.y, this.size,0,2*Math.PI);
         ga.ctx.fill();
